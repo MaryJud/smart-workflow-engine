@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1geaih9" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.50.1" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.9.0">
+  <bpmn:process id="Process_ExpenseApproval" name="Richiesta Rimborso Spese" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0s2jdt5</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0s2jdt5" sourceRef="StartEvent_1" targetRef="Task_FillExpense" />
+    <bpmn:userTask id="Task_FillExpense" name="Compilazione Dettagli spesa">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+        <zeebe:formDefinition formId="form_expense_details" />
+        <zeebe:assignmentDefinition assignee="employeeId" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0s2jdt5</bpmn:incoming>
+      <bpmn:outgoing>Flow_0zlo4ud</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="Gateway_AmountCheck" name="Importo &#62;= 500€?">
+      <bpmn:incoming>Flow_0zlo4ud</bpmn:incoming>
+      <bpmn:outgoing>Flow_ApprovalManager</bpmn:outgoing>
+      <bpmn:outgoing>Flow_AutoApproved</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0zlo4ud" sourceRef="Task_FillExpense" targetRef="Gateway_AmountCheck" />
+    <bpmn:userTask id="Task_ManagerApproval" name="Approvazione Manager">
+      <bpmn:extensionElements>
+        <zeebe:userTask />
+        <zeebe:formDefinition formId="form_manager_approval" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_ApprovalManager</bpmn:incoming>
+      <bpmn:outgoing>Flow_0141bjm</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_ApprovalManager" sourceRef="Gateway_AmountCheck" targetRef="Task_ManagerApproval">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=(if is number(amount) then amount else number(string(amount))) &gt;= 500</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:exclusiveGateway id="Gateway_ApprovalCheck" name="Viene approvato?" default="Flow_Rejected">
+      <bpmn:incoming>Flow_0141bjm</bpmn:incoming>
+      <bpmn:outgoing>Flow_Approved</bpmn:outgoing>
+      <bpmn:outgoing>Flow_Rejected</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0141bjm" sourceRef="Task_ManagerApproval" targetRef="Gateway_ApprovalCheck" />
+    <bpmn:endEvent id="EndEvent_AutoApproved" name="Approvato Automaticamente">
+      <bpmn:incoming>Flow_AutoApproved</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_AutoApproved" sourceRef="Gateway_AmountCheck" targetRef="EndEvent_AutoApproved">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=(if is number(amount) then amount else number(string(amount))) &lt; 500</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="EndEvent_Rejected" name="Rifiutato">
+      <bpmn:incoming>Flow_Rejected</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="EndEvent_Approved" name="Approvato dal Manager">
+      <bpmn:incoming>Flow_Approved</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_Approved" sourceRef="Gateway_ApprovalCheck" targetRef="EndEvent_Approved">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=string(approved) = "true"</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_Rejected" sourceRef="Gateway_ApprovalCheck" targetRef="EndEvent_Rejected">
+      <bpmn:extensionElements />
+    </bpmn:sequenceFlow>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_ExpenseApproval">
+      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="182" y="112" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1nmh9ws_di" bpmnElement="Task_FillExpense">
+        <dc:Bounds x="280" y="90" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_05eanho_di" bpmnElement="Gateway_AmountCheck" isMarkerVisible="true">
+        <dc:Bounds x="445" y="105" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="426" y="81" width="87" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0n09xhr_di" bpmnElement="Task_ManagerApproval">
+        <dc:Bounds x="560" y="90" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1qams9j_di" bpmnElement="Gateway_ApprovalCheck" isMarkerVisible="true">
+        <dc:Bounds x="725" y="105" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="706" y="81" width="87" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_00q87ty_di" bpmnElement="EndEvent_AutoApproved">
+        <dc:Bounds x="452" y="232" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="427" y="278" width="86" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1x0j4jj_di" bpmnElement="EndEvent_Rejected">
+        <dc:Bounds x="842" y="232" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="840" y="275" width="41" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1rqvsze_di" bpmnElement="EndEvent_Approved">
+        <dc:Bounds x="842" y="112" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="826" y="155" width="68" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0s2jdt5_di" bpmnElement="Flow_0s2jdt5">
+        <di:waypoint x="218" y="130" />
+        <di:waypoint x="280" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0zlo4ud_di" bpmnElement="Flow_0zlo4ud">
+        <di:waypoint x="380" y="130" />
+        <di:waypoint x="445" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0sm1xbi_di" bpmnElement="Flow_ApprovalManager">
+        <di:waypoint x="495" y="130" />
+        <di:waypoint x="560" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0141bjm_di" bpmnElement="Flow_0141bjm">
+        <di:waypoint x="660" y="130" />
+        <di:waypoint x="725" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1d0e621_di" bpmnElement="Flow_AutoApproved">
+        <di:waypoint x="470" y="155" />
+        <di:waypoint x="470" y="232" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="799" y="162" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0vhmrkh_di" bpmnElement="Flow_Approved">
+        <di:waypoint x="775" y="130" />
+        <di:waypoint x="842" y="130" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1xjkubq_di" bpmnElement="Flow_Rejected">
+        <di:waypoint x="750" y="155" />
+        <di:waypoint x="750" y="250" />
+        <di:waypoint x="842" y="250" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

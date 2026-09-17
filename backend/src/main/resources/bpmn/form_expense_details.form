@@ -1,0 +1,66 @@
+{
+  "components": [
+    {
+      "text": "## Richiesta spese",
+      "type": "text",
+      "layout": {
+        "row": "Row_1euwmfh",
+        "columns": null
+      },
+      "id": "Field_1h6rpu0"
+    },
+    {
+      "label": "Importo",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1bdi3y8",
+        "columns": 5
+      },
+      "id": "Field_1a9r1ha",
+      "key": "amount",
+      "description": "Importo spese previsto"
+    },
+    {
+      "label": "Categoria",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1bdi3y8",
+        "columns": null
+      },
+      "id": "Field_0i7ii2h",
+      "key": "category",
+      "description": "Categoria di spesa"
+    },
+    {
+      "subtype": "date",
+      "dateLabel": "Data",
+      "type": "datetime",
+      "layout": {
+        "row": "Row_124qvgr",
+        "columns": 5
+      },
+      "id": "Field_0nnd1dc",
+      "key": "expenseDate",
+      "description": "Data della spesa"
+    },
+    {
+      "label": "Descrizione",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_124qvgr",
+        "columns": null
+      },
+      "id": "Field_13dfe39",
+      "key": "description"
+    }
+  ],
+  "type": "default",
+  "id": "form_expense_details",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.9.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.50.1"
+  },
+  "schemaVersion": 19
+}

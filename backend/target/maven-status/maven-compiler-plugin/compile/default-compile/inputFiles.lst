@@ -1,0 +1,15 @@
+/Users/mariarosariagiudice/Documents/git/smart-workflow-engine/backend/src/main/java/com/engine/workflow/WorkflowVariable.java
+/Users/mariarosariagiudice/Documents/git/smart-workflow-engine/backend/src/main/java/com/engine/workflow/entity/User.java
+/Users/mariarosariagiudice/Documents/git/smart-workflow-engine/backend/src/main/java/com/engine/workflow/repository/UserRepository.java
+/Users/mariarosariagiudice/Documents/git/smart-workflow-engine/backend/src/main/java/com/engine/workflow/WorkflowApplication.java
+/Users/mariarosariagiudice/Documents/git/smart-workflow-engine/backend/src/main/java/com/engine/workflow/service/CamundaWorkflowService.java
+/Users/mariarosariagiudice/Documents/git/smart-workflow-engine/backend/src/main/java/com/engine/workflow/config/DataInitializer.java
+/Users/mariarosariagiudice/Documents/git/smart-workflow-engine/backend/src/main/java/com/engine/workflow/config/ProcessDeployerConfig.java
+/Users/mariarosariagiudice/Documents/git/smart-workflow-engine/backend/src/main/java/com/engine/workflow/service/WorkflowFormService.java
+/Users/mariarosariagiudice/Documents/git/smart-workflow-engine/backend/src/main/java/com/engine/workflow/dto/StartProcessRequest.java
+/Users/mariarosariagiudice/Documents/git/smart-workflow-engine/backend/src/main/java/com/engine/workflow/dto/FormFieldDto.java
+/Users/mariarosariagiudice/Documents/git/smart-workflow-engine/backend/src/main/java/com/engine/workflow/config/ZeebeConfig.java
+/Users/mariarosariagiudice/Documents/git/smart-workflow-engine/backend/src/main/java/com/engine/workflow/controller/AuthController.java
+/Users/mariarosariagiudice/Documents/git/smart-workflow-engine/backend/src/main/java/com/engine/workflow/controller/WorkflowController.java
+/Users/mariarosariagiudice/Documents/git/smart-workflow-engine/backend/src/main/java/com/engine/workflow/repository/ExpenseRequestRepository.java
+/Users/mariarosariagiudice/Documents/git/smart-workflow-engine/backend/src/main/java/com/engine/workflow/entity/ExpenseRequest.java

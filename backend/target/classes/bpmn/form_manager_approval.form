@@ -1,0 +1,52 @@
+{
+  "components": [
+    {
+      "text": "## Approvazione della spesa del Dipendente",
+      "type": "text",
+      "layout": {
+        "row": "Row_0vid1hd",
+        "columns": null
+      },
+      "id": "Field_1viggzb"
+    },
+    {
+      "label": "Approvi la spesa?",
+      "values": [
+        {
+          "label": "Si",
+          "value": "true"
+        },
+        {
+          "label": "No",
+          "value": "false"
+        }
+      ],
+      "type": "radio",
+      "layout": {
+        "row": "Row_1puab0t",
+        "columns": null
+      },
+      "id": "Field_0vjgc37",
+      "key": "approved"
+    },
+    {
+      "label": "Note",
+      "type": "textarea",
+      "layout": {
+        "row": "Row_1nehpfb",
+        "columns": null
+      },
+      "id": "Field_1k8c1xw",
+      "key": "managerNotes"
+    }
+  ],
+  "type": "default",
+  "id": "form_manager_approval",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.9.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.50.1"
+  },
+  "schemaVersion": 19
+}

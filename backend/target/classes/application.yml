@@ -1,0 +1,37 @@
+server:
+  port: 8080
+
+spring:
+  messages:
+    basename: messages
+    encoding: UTF-8
+    fallback-to-system-locale: false
+
+  datasource:
+    url: jdbc:h2:file:./data/workflowdb;AUTO_SERVER=TRUE
+    driver-class-name: org.h2.Driver
+    username: mrj
+    password: workflow
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+camunda:
+  client:
+    mode: saas
+    auth:
+      client-id: DDQ73RL2epgpaTzI82wKvNVKgB2r2~Hv
+      client-secret: ET5PqkRq9PlabK3.GqKv3RroRVtt7YPlMgkYQr6pDo50Cl-4n2lmnT5__aakzOAr
+    cloud:
+      cluster-id: 9b6757c2-e956-442c-8a29-995e50711123
+      region: fra-1
+      tasklist-url: https://fra-1.tasklist.camunda.io/
+
